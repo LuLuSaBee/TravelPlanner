@@ -18,15 +18,20 @@ class ItineraryViewController: UITableViewController {
         return formatter
     }()
 
-    // MARK: Init
+    // MARK: - Init
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         navigationItem.backButtonTitle = "Back"
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 
-    // MARK: TableView
+    // MARK: - TableView
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Day \(section + 1)"
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,7 +47,6 @@ class ItineraryViewController: UITableViewController {
 
         imageStore.fetchInterestingImages {
             (photosResult) in
-
             switch photosResult {
             case let .success(images):
                 print("Successfully found \(images.count) photos.")
@@ -62,11 +66,40 @@ class ItineraryViewController: UITableViewController {
             }
 
         }
-
         return cell
     }
 
-    func updateImageView(for photo: Image) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let itinerary = itineraryStore.allItineraries[indexPath.row]
+            itineraryStore.removeItinerary(itinerary)
 
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+
+    // MARK: - Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showItinerary":
+            if let row = tableView.indexPathForSelectedRow?.row {
+                let itinerary = itineraryStore.allItineraries[row]
+                let detailViewController = segue.destination as! DetailViewController
+                detailViewController.itinerary = itinerary
+            }
+        case "addItinerary":
+            let itinerary = itineraryStore.createItinerary()
+
+            if let index = itineraryStore.allItineraries.firstIndex(of: itinerary) {
+                let indexPath = IndexPath(row: index, section: 0)
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.itinerary = itinerary
+            detailViewController.isAddMode = true
+        default:
+            preconditionFailure("Unexpected segue identifier.")
+        }
     }
 }

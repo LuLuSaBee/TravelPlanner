@@ -15,10 +15,16 @@ class ItineraryStore {
     }
 
     @discardableResult func createItinerary() -> Itinerary {
-        let newItinerary = Itinerary(name: "Test1", description: "介紹介紹", datetime: Date())
+        let newItinerary = Itinerary(name: "", description: "", datetime: Date())
 
         allItineraries.append(newItinerary)
 
         return newItinerary
+    }
+
+    func removeItinerary(_ itinerary: Itinerary) {
+        if let index = allItineraries.firstIndex(of: itinerary) {
+            allItineraries.remove(at: index)
+        }
     }
 }

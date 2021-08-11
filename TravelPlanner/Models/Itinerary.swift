@@ -16,7 +16,7 @@ class Itinerary: Codable, Equatable {
     var datetime: Date
 
 
-    // MARK: - Init Function
+    // MARK: - Init
     init(name: String, description: String, datetime: Date) {
         self.itineraryKey = UUID().uuidString
         self.name = name
@@ -24,6 +24,7 @@ class Itinerary: Codable, Equatable {
         self.datetime = datetime
     }
 
+    // MARK: - Equatable
     static func == (lhs: Itinerary, rhs: Itinerary) -> Bool {
         return lhs.itineraryKey == rhs.itineraryKey
     }

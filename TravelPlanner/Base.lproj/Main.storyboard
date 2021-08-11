@@ -67,7 +67,7 @@
                                     <outlet property="datetimeLabel" destination="cy2-Nq-Xqu" id="His-A2-rmI"/>
                                     <outlet property="irineraryImage" destination="O7D-Cy-IGR" id="mUR-r2-bsP"/>
                                     <outlet property="nameLabel" destination="IN2-xc-f8r" id="eyN-Zo-NkY"/>
-                                    <segue destination="6ZT-DX-jZk" kind="show" identifier="showItinerary" id="sTs-RD-qxg"/>
+                                    <segue destination="6ZT-DX-jZk" kind="show" identifier="showItinerary" id="vcK-wr-iwT"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -78,7 +78,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Travel Planner" id="oCR-IX-aM5">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Q8L-KR-7yB"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Y3-Hu-qJc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Y3-Hu-qJc">
+                            <connections>
+                                <segue destination="6ZT-DX-jZk" kind="show" identifier="addItinerary" id="hcJ-2S-XHu"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x8k-hu-fK7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -103,7 +107,7 @@
                                             <constraint firstAttribute="width" constant="375" id="wjZ-He-XCN"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wer-iM-iSV">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wer-iM-iSV" userLabel="Name Field">
                                         <rect key="frame" x="8" y="247.99999999999997" width="359" height="25.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -113,7 +117,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Dep" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTz-uE-hFO">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Dep" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTz-uE-hFO">
                                         <rect key="frame" x="8" y="308.33333333333331" width="359" height="18.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -146,12 +150,12 @@
                         <outlet property="datetimeField" destination="V81-5s-gJH" id="NKL-D1-QUY"/>
                         <outlet property="descriptionField" destination="BTz-uE-hFO" id="dzQ-iA-5Oc"/>
                         <outlet property="imageView" destination="iQD-QW-Cf7" id="p2l-Lu-Zqd"/>
-                        <outlet property="nameField" destination="wer-iM-iSV" id="GM9-dT-2Fy"/>
+                        <outlet property="nameField" destination="wer-iM-iSV" id="gYf-DC-xFA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WO0-L2-5Or" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1483" y="147"/>
+            <point key="canvasLocation" x="1687" y="146"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Qd-MN-YA4">
@@ -172,6 +176,9 @@
             <point key="canvasLocation" x="-104" y="147"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="vcK-wr-iwT"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

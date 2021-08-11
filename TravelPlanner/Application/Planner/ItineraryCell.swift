@@ -12,4 +12,3 @@ class ItineraryCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var datetimeLabel: UILabel!
 }
-
