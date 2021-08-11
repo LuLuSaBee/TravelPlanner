@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B35931326C36C1100664B59 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B35931226C36C1100664B59 /* DetailViewController.swift */; };
 		8B6F655B26C1115A006815FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F655A26C1115A006815FF /* AppDelegate.swift */; };
 		8B6F655D26C1115A006815FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F655C26C1115A006815FF /* SceneDelegate.swift */; };
 		8B6F655F26C1115A006815FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F655E26C1115A006815FF /* ViewController.swift */; };
@@ -15,8 +16,13 @@
 		8B6F656726C1115B006815FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B6F656526C1115B006815FF /* LaunchScreen.storyboard */; };
 		8B6F657226C1115B006815FF /* TravelPlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F657126C1115B006815FF /* TravelPlannerTests.swift */; };
 		8B6F657D26C1115B006815FF /* TravelPlannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F657C26C1115B006815FF /* TravelPlannerUITests.swift */; };
-		8B6F658D26C1126A006815FF /* PlannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F658C26C1126A006815FF /* PlannerViewController.swift */; };
+		8B6F658D26C1126A006815FF /* ItineraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6F658C26C1126A006815FF /* ItineraryViewController.swift */; };
 		8B8021EE26C1142000149784 /* Itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8021ED26C1142000149784 /* Itinerary.swift */; };
+		8B8021F026C258EA00149784 /* ItineraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8021EF26C258EA00149784 /* ItineraryStore.swift */; };
+		8B8021F226C25AFA00149784 /* ItineraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8021F126C25AFA00149784 /* ItineraryCell.swift */; };
+		8B8021FA26C269A100149784 /* FlickrAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8021F926C269A100149784 /* FlickrAPI.swift */; };
+		8B8021FC26C2703100149784 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8021FB26C2703100149784 /* ImageStore.swift */; };
+		8B8021FE26C271A500149784 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8021FD26C271A500149784 /* Image.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B35931226C36C1100664B59 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8B6F655726C1115A006815FF /* TravelPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B6F655A26C1115A006815FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8B6F655C26C1115A006815FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,8 +58,13 @@
 		8B6F657826C1115B006815FF /* TravelPlannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravelPlannerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B6F657C26C1115B006815FF /* TravelPlannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlannerUITests.swift; sourceTree = "<group>"; };
 		8B6F657E26C1115B006815FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B6F658C26C1126A006815FF /* PlannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewController.swift; sourceTree = "<group>"; };
+		8B6F658C26C1126A006815FF /* ItineraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryViewController.swift; sourceTree = "<group>"; };
 		8B8021ED26C1142000149784 /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
+		8B8021EF26C258EA00149784 /* ItineraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryStore.swift; sourceTree = "<group>"; };
+		8B8021F126C25AFA00149784 /* ItineraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryCell.swift; sourceTree = "<group>"; };
+		8B8021F926C269A100149784 /* FlickrAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPI.swift; sourceTree = "<group>"; };
+		8B8021FB26C2703100149784 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
+		8B8021FD26C271A500149784 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,11 +120,10 @@
 				8B6F655E26C1115A006815FF /* ViewController.swift */,
 				8B6F656026C1115A006815FF /* Main.storyboard */,
 				8B6F656326C1115B006815FF /* Assets.xcassets */,
-				8B6F658A26C111E8006815FF /* Planner */,
 				8B6F656526C1115B006815FF /* LaunchScreen.storyboard */,
 				8B6F656826C1115B006815FF /* Info.plist */,
+				8B8021F326C264DE00149784 /* Application */,
 				8B8021EC26C1140E00149784 /* Models */,
-				8B6F658B26C111FA006815FF /* Detail */,
 			);
 			path = TravelPlanner;
 			sourceTree = "<group>";
@@ -138,7 +149,8 @@
 		8B6F658A26C111E8006815FF /* Planner */ = {
 			isa = PBXGroup;
 			children = (
-				8B6F658C26C1126A006815FF /* PlannerViewController.swift */,
+				8B6F658C26C1126A006815FF /* ItineraryViewController.swift */,
+				8B8021F126C25AFA00149784 /* ItineraryCell.swift */,
 			);
 			path = Planner;
 			sourceTree = "<group>";
@@ -146,6 +158,7 @@
 		8B6F658B26C111FA006815FF /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				8B35931226C36C1100664B59 /* DetailViewController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -154,8 +167,29 @@
 			isa = PBXGroup;
 			children = (
 				8B8021ED26C1142000149784 /* Itinerary.swift */,
+				8B8021EF26C258EA00149784 /* ItineraryStore.swift */,
+				8B8021FB26C2703100149784 /* ImageStore.swift */,
+				8B8021FD26C271A500149784 /* Image.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8B8021F326C264DE00149784 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				8B8021F826C2698800149784 /* API */,
+				8B6F658A26C111E8006815FF /* Planner */,
+				8B6F658B26C111FA006815FF /* Detail */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		8B8021F826C2698800149784 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8B8021F926C269A100149784 /* FlickrAPI.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,11 +322,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B35931326C36C1100664B59 /* DetailViewController.swift in Sources */,
 				8B6F655F26C1115A006815FF /* ViewController.swift in Sources */,
-				8B6F658D26C1126A006815FF /* PlannerViewController.swift in Sources */,
+				8B8021FC26C2703100149784 /* ImageStore.swift in Sources */,
+				8B6F658D26C1126A006815FF /* ItineraryViewController.swift in Sources */,
 				8B6F655B26C1115A006815FF /* AppDelegate.swift in Sources */,
+				8B8021F226C25AFA00149784 /* ItineraryCell.swift in Sources */,
+				8B8021F026C258EA00149784 /* ItineraryStore.swift in Sources */,
 				8B6F655D26C1115A006815FF /* SceneDelegate.swift in Sources */,
 				8B8021EE26C1142000149784 /* Itinerary.swift in Sources */,
+				8B8021FA26C269A100149784 /* FlickrAPI.swift in Sources */,
+				8B8021FE26C271A500149784 /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
