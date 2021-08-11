@@ -7,12 +7,12 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     // MARK: - Variable
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var nameField: UITextField!
     @IBOutlet var datetimeField: UITextField!
-    @IBOutlet var descriptionField: UITextField!
+    @IBOutlet var descriptionTextView: UITextView!
 
     var itinerary: Itinerary!
     var isAddMode = false
@@ -36,12 +36,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         nameField.text = itinerary.name
         datetimeField.text = dateFormatter.string(from: itinerary.datetime)
-        descriptionField.text = itinerary.description
         setEditableTextFieldStyle(isEditing: isAddMode)
-        
+
         createDatetimePicker()
     }
-    
+
+    func textViewDidChange(_ textView: UITextView) {
+        view.layoutIfNeeded()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
@@ -56,14 +59,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         if nameField != nil {
             nameField.isUserInteractionEnabled = isEditing
             datetimeField.isUserInteractionEnabled = isEditing
-            descriptionField.isUserInteractionEnabled = isEditing
 
             nameField.borderStyle = isEditing ? .roundedRect : .none
             datetimeField.borderStyle = isEditing ? .roundedRect : .none
-            descriptionField.borderStyle = isEditing ? .roundedRect : .none
         }
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -72,22 +73,22 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBAction func backgroungTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
-    func createDatetimePicker(){
+
+    func createDatetimePicker() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        
+
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneDatetimePick))
         toolbar.setItems([doneButton], animated: true)
-        
+
         datetimeField.inputAccessoryView = toolbar
-        
+
         datetimePicker.datePickerMode = .dateAndTime
         datetimePicker.preferredDatePickerStyle = .wheels
         datetimeField.inputView = datetimePicker
     }
-    
-    @objc func doneDatetimePick(){
+
+    @objc func doneDatetimePick() {
         datetimeField.text = dateFormatter.string(from: datetimePicker.date)
         let _ = self.textFieldShouldReturn(datetimeField)
     }
