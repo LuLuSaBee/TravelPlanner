@@ -97,6 +97,7 @@ class ItineraryViewController: UITableViewController {
 
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.itinerary = itinerary
+            detailViewController.setEditing(true, animated: true)
             detailViewController.isAddMode = true
         default:
             preconditionFailure("Unexpected segue identifier.")

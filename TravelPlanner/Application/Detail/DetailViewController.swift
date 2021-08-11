@@ -39,13 +39,20 @@ class DetailViewController: UIViewController {
         setTextFieldsParamters(isEditing: isAddMode)
     }
 
-    func setTextFieldsParamters(isEditing: Bool) {
-        nameField.isUserInteractionEnabled = isEditing
-        datetimeField.isUserInteractionEnabled = isEditing
-        descriptionField.isUserInteractionEnabled = isEditing
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        setTextFieldsParamters(isEditing: editing)
+    }
 
-        nameField.borderStyle = isEditing ? .roundedRect : .none
-        datetimeField.borderStyle = isEditing ? .roundedRect : .none
-        descriptionField.borderStyle = isEditing ? .roundedRect : .none
+    func setTextFieldsParamters(isEditing: Bool) {
+        if nameField != nil {
+            nameField.isUserInteractionEnabled = isEditing
+            datetimeField.isUserInteractionEnabled = isEditing
+            descriptionField.isUserInteractionEnabled = isEditing
+
+            nameField.borderStyle = isEditing ? .roundedRect : .none
+            datetimeField.borderStyle = isEditing ? .roundedRect : .none
+            descriptionField.borderStyle = isEditing ? .roundedRect : .none
+        }
     }
 }
