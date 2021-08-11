@@ -111,16 +111,25 @@
                                         <rect key="frame" x="8" y="247.99999999999997" width="359" height="25.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="6ZT-DX-jZk" id="fCp-Tr-GF3"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V81-5s-gJH">
                                         <rect key="frame" x="8" y="281.66666666666669" width="359" height="18.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="6ZT-DX-jZk" id="gFy-iP-NWD"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Dep" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTz-uE-hFO">
                                         <rect key="frame" x="8" y="308.33333333333331" width="359" height="18.666666666666686"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="6ZT-DX-jZk" id="M8Y-M3-omb"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -139,11 +148,15 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nae-lz-E7Q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="fuG-fJ-4cx" firstAttribute="trailing" secondItem="nae-lz-E7Q" secondAttribute="trailing" id="jCf-1k-WVU"/>
                             <constraint firstItem="fuG-fJ-4cx" firstAttribute="top" secondItem="nae-lz-E7Q" secondAttribute="top" id="kZq-tt-9RX"/>
                             <constraint firstItem="fuG-fJ-4cx" firstAttribute="leading" secondItem="nae-lz-E7Q" secondAttribute="leading" id="pqd-oJ-eBM"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="cxQ-7N-B6I" appends="YES" id="Wbi-70-o4a"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="fFK-Ra-H8Q"/>
                     <connections>
@@ -154,6 +167,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WO0-L2-5Or" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="cxQ-7N-B6I">
+                    <connections>
+                        <action selector="backgroungTapped:" destination="6ZT-DX-jZk" id="QlU-1q-IeV"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1687" y="146"/>
         </scene>
