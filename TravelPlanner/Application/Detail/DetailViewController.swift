@@ -17,6 +17,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var itinerary: Itinerary!
     var isAddMode = false
     var datetimePicker = UIDatePicker()
+    var saveChanges = { print("") }
+    var imageStore: ImageStore!
 
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -28,7 +30,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     // MARK: - Init
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         editButtonItem.action = #selector(editButtonItemClick)
         navigationItem.rightBarButtonItem = editButtonItem
     }
@@ -63,12 +65,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         let _ = self.textFieldShouldReturn(datetimeField)
     }
 
-    //MARK: -
+    //MARK: - View
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         nameField.text = itinerary.name
         datetimeField.text = dateFormatter.string(from: itinerary.datetime)
         setEditableTextFieldStyle(isEditing: isAddMode)
+
+        let displayImage = imageStore.getImage(forKey: itinerary.itineraryKey)
+        imageView.image = displayImage
 
         createDatetimePicker()
     }
@@ -76,12 +81,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
-        
-        itinerary.name = nameField.text ?? ""
-        itinerary.datetime = datetimePicker.date
-        itinerary.description = descriptionTextView.text ?? ""
     }
 
+    // MARK: - Editing
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         setEditableTextFieldStyle(isEditing: editing)
@@ -101,8 +103,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
             descriptionTextView.backgroundColor = isEditing ? #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1): UIColor.systemBackground
         }
     }
-    
-    @objc func editButtonItemClick(){
+
+    @objc func editButtonItemClick() {
+        if self.isEditing {
+            itinerary.name = nameField.text ?? ""
+            itinerary.datetime = datetimePicker.date
+            itinerary.description = descriptionTextView.text ?? ""
+            saveChanges()
+        }
         self.setEditing(!self.isEditing, animated: true)
     }
 }

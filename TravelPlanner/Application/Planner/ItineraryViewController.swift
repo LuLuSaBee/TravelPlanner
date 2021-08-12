@@ -29,8 +29,8 @@ class ItineraryViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    
+
+
     // MARK: Group
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Day \(section + 1)"
@@ -47,28 +47,8 @@ class ItineraryViewController: UITableViewController {
 
         cell.nameLabel.text = itinerary.name
         cell.datetimeLabel.text = dateFormatter.string(from: itinerary.datetime)
+        cell.irineraryImage.image = imageStore.getImage(forKey: itinerary.itineraryKey)
 
-        imageStore.fetchInterestingImages {
-            (photosResult) in
-            switch photosResult {
-            case let .success(images):
-                print("Successfully found \(images.count) photos.")
-                if let firstPhoto = images.first {
-                    self.imageStore.fetchImage(for: firstPhoto) {
-                        (imageResult) in
-                        switch imageResult {
-                        case let .success(image):
-                            cell.irineraryImage.image = image
-                        case let .failure(error):
-                            print("Error downloading image: \(error)")
-                        }
-                    }
-                }
-            case let .failure(error):
-                print("Error fetching interesting photos: \(error)")
-            }
-
-        }
         return cell
     }
 
@@ -85,25 +65,43 @@ class ItineraryViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "showItinerary":
-            if let row = tableView.indexPathForSelectedRow?.row {
-                let itinerary = itineraryStore.allItineraries[row]
-                let detailViewController = segue.destination as! DetailViewController
-                detailViewController.itinerary = itinerary
-            }
+            showItinerary(segue: segue)
         case "addItinerary":
-            let itinerary = itineraryStore.createItinerary()
-
-            if let index = itineraryStore.allItineraries.firstIndex(of: itinerary) {
-                let indexPath = IndexPath(row: index, section: 0)
-                tableView.insertRows(at: [indexPath], with: .automatic)
-            }
-
-            let detailViewController = segue.destination as! DetailViewController
-            detailViewController.itinerary = itinerary
-            detailViewController.setEditing(true, animated: true)
-            detailViewController.isAddMode = true
+            addItinerary(segue: segue)
         default:
             preconditionFailure("Unexpected segue identifier.")
+        }
+    }
+
+    func showItinerary(segue: UIStoryboardSegue) {
+        if let row = tableView.indexPathForSelectedRow?.row {
+            let itinerary = itineraryStore.allItineraries[row]
+            let detailViewController = segue.destination as! DetailViewController
+            segueToDetailView(in: detailViewController, show: itinerary)
+        }
+    }
+
+    func addItinerary(segue: UIStoryboardSegue) {
+        let itinerary = itineraryStore.createItinerary()
+        imageStore.fetchRandomImageAndSetByKey(key: itinerary.itineraryKey)
+
+        if let index = itineraryStore.allItineraries.firstIndex(of: itinerary) {
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+
+        let detailViewController = segue.destination as! DetailViewController
+        detailViewController.setEditing(true, animated: true)
+        detailViewController.isAddMode = true
+
+        segueToDetailView(in: detailViewController, show: itinerary)
+    }
+
+    func segueToDetailView(in viewController: DetailViewController, show itinerary: Itinerary) {
+        viewController.itinerary = itinerary
+        viewController.imageStore = imageStore
+        viewController.saveChanges = {
+            self.itineraryStore.saveItinerary()
         }
     }
 
