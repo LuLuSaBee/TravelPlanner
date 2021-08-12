@@ -29,7 +29,9 @@ class ItineraryViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
+    
+    // MARK: Group
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Day \(section + 1)"
     }
@@ -38,6 +40,7 @@ class ItineraryViewController: UITableViewController {
         return itineraryStore.allItineraries.count
     }
 
+    // MARK: Cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItineraryCell", for: indexPath) as! ItineraryCell
         let itinerary = itineraryStore.allItineraries[indexPath.row]
@@ -102,5 +105,12 @@ class ItineraryViewController: UITableViewController {
         default:
             preconditionFailure("Unexpected segue identifier.")
         }
+    }
+
+    // MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tableView.reloadData()
     }
 }

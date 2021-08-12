@@ -28,6 +28,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     // MARK: - Init
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        editButtonItem.action = #selector(editButtonItemClick)
         navigationItem.rightBarButtonItem = editButtonItem
     }
 
@@ -41,7 +43,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         view.endEditing(true)
     }
 
-    // MARK: - DateTimePicker
+    // MARK: - DatetimePicker
     func createDatetimePicker() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -74,6 +76,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
+        
+        itinerary.name = nameField.text ?? ""
+        itinerary.datetime = datetimePicker.date
+        itinerary.description = descriptionTextView.text ?? ""
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -92,6 +98,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
 
             descriptionTextView.isEditable = isEditing
             descriptionTextView.textColor = isEditing ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1): #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+            descriptionTextView.backgroundColor = isEditing ? #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1): UIColor.systemBackground
         }
+    }
+    
+    @objc func editButtonItemClick(){
+        self.setEditing(!self.isEditing, animated: true)
     }
 }
