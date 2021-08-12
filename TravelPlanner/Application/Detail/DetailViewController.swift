@@ -31,40 +31,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         navigationItem.rightBarButtonItem = editButtonItem
     }
 
-    //MARK: -
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        nameField.text = itinerary.name
-        datetimeField.text = dateFormatter.string(from: itinerary.datetime)
-        setEditableTextFieldStyle(isEditing: isAddMode)
-
-        createDatetimePicker()
-    }
-
-    func textViewDidChange(_ textView: UITextView) {
-        view.layoutIfNeeded()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        view.endEditing(true)
-    }
-
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        setEditableTextFieldStyle(isEditing: editing)
-    }
-
-    func setEditableTextFieldStyle(isEditing: Bool) {
-        if nameField != nil {
-            nameField.isUserInteractionEnabled = isEditing
-            datetimeField.isUserInteractionEnabled = isEditing
-
-            nameField.borderStyle = isEditing ? .roundedRect : .none
-            datetimeField.borderStyle = isEditing ? .roundedRect : .none
-        }
-    }
-
+    // MARK: - Keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -74,6 +41,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         view.endEditing(true)
     }
 
+    // MARK: - DateTimePicker
     func createDatetimePicker() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -91,5 +59,39 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     @objc func doneDatetimePick() {
         datetimeField.text = dateFormatter.string(from: datetimePicker.date)
         let _ = self.textFieldShouldReturn(datetimeField)
+    }
+
+    //MARK: -
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        nameField.text = itinerary.name
+        datetimeField.text = dateFormatter.string(from: itinerary.datetime)
+        setEditableTextFieldStyle(isEditing: isAddMode)
+
+        createDatetimePicker()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        setEditableTextFieldStyle(isEditing: editing)
+    }
+
+    func setEditableTextFieldStyle(isEditing: Bool) {
+        if nameField != nil {
+            nameField.isUserInteractionEnabled = isEditing
+            nameField.borderStyle = isEditing ? .roundedRect : .none
+            nameField.placeholder = isEditing ? "Name" : ""
+
+            datetimeField.isUserInteractionEnabled = isEditing
+            datetimeField.borderStyle = isEditing ? .roundedRect : .none
+
+            descriptionTextView.isEditable = isEditing
+            descriptionTextView.textColor = isEditing ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1): #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        }
     }
 }
