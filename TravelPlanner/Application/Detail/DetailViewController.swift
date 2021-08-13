@@ -72,10 +72,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         datetimeField.text = dateFormatter.string(from: itinerary.datetime)
         setEditableTextFieldStyle(isEditing: isAddMode)
 
-        let displayImage = imageStore.getImage(forKey: itinerary.itineraryKey)
-        imageView.image = displayImage
+        setImageViewImage()
 
         createDatetimePicker()
+    }
+
+    @objc func setImageViewImage() {
+        let displayImage = imageStore.getImage(forKey: itinerary.itineraryKey)
+        imageView.image = displayImage
     }
 
     override func viewWillDisappear(_ animated: Bool) {

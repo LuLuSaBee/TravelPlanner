@@ -83,7 +83,6 @@ class ItineraryViewController: UITableViewController {
 
     func addItinerary(segue: UIStoryboardSegue) {
         let itinerary = itineraryStore.createItinerary()
-        imageStore.fetchRandomImageAndSetByKey(key: itinerary.itineraryKey)
 
         if let index = itineraryStore.allItineraries.firstIndex(of: itinerary) {
             let indexPath = IndexPath(row: index, section: 0)
@@ -93,6 +92,10 @@ class ItineraryViewController: UITableViewController {
         let detailViewController = segue.destination as! DetailViewController
         detailViewController.setEditing(true, animated: true)
         detailViewController.isAddMode = true
+
+        imageStore.fetchRandomImageAndSetByKey(key: itinerary.itineraryKey)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(detailViewController, selector: #selector(detailViewController.setImageViewImage), name: Notification.Name.setImageDone, object: nil)
 
         segueToDetailView(in: detailViewController, show: itinerary)
     }

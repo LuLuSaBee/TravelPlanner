@@ -79,7 +79,12 @@ class ImageStore {
         let url = imageURL(forKey: key)
 
         if let data = image.jpegData(compressionQuality: 0.5) {
-            try? data.write(to: url)
+            do {
+                try data.write(to: url)
+                NotificationCenter.default.post(name: Notification.Name.setImageDone, object: nil, userInfo: nil)
+            } catch {
+                print("Write Image Error")
+            }
         }
     }
 
