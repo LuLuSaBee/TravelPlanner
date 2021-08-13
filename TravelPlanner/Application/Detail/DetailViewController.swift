@@ -70,8 +70,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         super.viewWillAppear(animated)
         nameField.text = itinerary.name
         datetimeField.text = dateFormatter.string(from: itinerary.datetime)
-        
-        self.setEditing(isAddMode, animated: isAddMode)
+
+        self.setEditing(isAddMode)
 
         setImageViewImage()
 
@@ -94,7 +94,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
 
     // MARK: - Editing
-    override func setEditing(_ editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool = true) {
         super.setEditing(editing, animated: animated)
         setEditableTextFieldStyle(isEditing: editing)
     }
@@ -119,6 +119,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
             itinerary.description = descriptionTextView.text ?? ""
             saveChanges()
         }
-        self.setEditing(!self.isEditing, animated: true)
+        self.setEditing(!self.isEditing)
+        switchBackButtonVisible(isnotVisable: self.isEditing)
+    }
+    
+    func switchBackButtonVisible(isnotVisable: Bool){
+        navigationItem.hidesBackButton = isnotVisable
     }
 }
