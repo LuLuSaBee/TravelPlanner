@@ -78,8 +78,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
 
     @objc func setImageViewImage() {
-        let displayImage = imageStore.getImage(forKey: itinerary.itineraryKey)
-        imageView.image = displayImage
+        if let displayImage = imageStore.getImage(forKey: itinerary.itineraryKey) {
+            imageView.image = displayImage
+        } else {
+            imageStore.fetchRandomImageAndSetByKey(key: itinerary.itineraryKey)
+            let notificationCenter = NotificationCenter.default
+            notificationCenter.addObserver(self, selector: #selector(self.setImageViewImage), name: Notification.Name.setImageDone, object: nil)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
