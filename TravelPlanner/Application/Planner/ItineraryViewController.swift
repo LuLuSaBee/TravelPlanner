@@ -90,7 +90,6 @@ class ItineraryViewController: UITableViewController {
         }
 
         let detailViewController = segue.destination as! DetailViewController
-        detailViewController.setEditing(true, animated: true)
         detailViewController.isAddMode = true
 
         segueToDetailView(in: detailViewController, show: itinerary)

@@ -70,7 +70,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         super.viewWillAppear(animated)
         nameField.text = itinerary.name
         datetimeField.text = dateFormatter.string(from: itinerary.datetime)
-        setEditableTextFieldStyle(isEditing: isAddMode)
+        
+        self.setEditing(isAddMode, animated: isAddMode)
 
         setImageViewImage()
 
@@ -99,18 +100,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     }
 
     func setEditableTextFieldStyle(isEditing: Bool) {
-        if nameField != nil {
-            nameField.isUserInteractionEnabled = isEditing
-            nameField.borderStyle = isEditing ? .roundedRect : .none
-            nameField.placeholder = isEditing ? "Name" : ""
+        nameField.isUserInteractionEnabled = isEditing
+        nameField.borderStyle = isEditing ? .roundedRect : .none
+        nameField.placeholder = isEditing ? "Name" : ""
 
-            datetimeField.isUserInteractionEnabled = isEditing
-            datetimeField.borderStyle = isEditing ? .roundedRect : .none
+        datetimeField.isUserInteractionEnabled = isEditing
+        datetimeField.borderStyle = isEditing ? .roundedRect : .none
 
-            descriptionTextView.isEditable = isEditing
-            descriptionTextView.textColor = isEditing ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1): #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-            descriptionTextView.backgroundColor = isEditing ? #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1): UIColor.systemBackground
-        }
+        descriptionTextView.isEditable = isEditing
+        descriptionTextView.textColor = isEditing ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1): #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        descriptionTextView.backgroundColor = isEditing ? #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1): UIColor.systemBackground
     }
 
     @objc func editButtonItemClick() {
