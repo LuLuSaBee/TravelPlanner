@@ -56,6 +56,8 @@ class ItineraryViewController: UITableViewController {
         if editingStyle == .delete {
             let itinerary = itineraryStore.allItineraries[indexPath.row]
             itineraryStore.removeItinerary(itinerary)
+            
+            imageStore.deleteImage(forKey: itinerary.itineraryKey)
 
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -106,6 +108,7 @@ class ItineraryViewController: UITableViewController {
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableView.allowsMultipleSelectionDuringEditing = true
 
         tableView.reloadData()
     }
