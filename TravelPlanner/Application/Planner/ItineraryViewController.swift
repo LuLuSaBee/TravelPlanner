@@ -11,6 +11,8 @@ class ItineraryViewController: UITableViewController {
     var itineraryStore: ItineraryStore!
     var imageStore: ImageStore!
 
+    var deleteButton: UIBarButtonItem!
+
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -22,7 +24,9 @@ class ItineraryViewController: UITableViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         navigationItem.backButtonTitle = "Back"
-        navigationItem.leftBarButtonItem = editButtonItem
+        setNavigationItemLeftButtonToEditButton()
+
+        deleteButton = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteRowsByMultipleSelection(sender:)))
     }
 
     // MARK: - TableView
@@ -55,15 +59,46 @@ class ItineraryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let itinerary = itineraryStore.allItineraries[indexPath.row]
-            itineraryStore.removeItinerary(itinerary)
-            
-            imageStore.deleteImage(forKey: itinerary.itineraryKey)
+            deleteStoreDatas(delete: itinerary)
 
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if self.isEditing {
+            navigationItem.leftBarButtonItem = deleteButton
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.indexPathsForSelectedRows == nil {
+            setNavigationItemLeftButtonToEditButton()
+        }
+    }
+
+    @objc func deleteRowsByMultipleSelection(sender: UIBarButtonItem) {
+        if let selectedRows = tableView.indexPathsForSelectedRows {
+            for indexPath in selectedRows {
+                let itinerary = itineraryStore.allItineraries[indexPath.row]
+                deleteStoreDatas(delete: itinerary)
+            }
+
+            tableView.deleteRows(at: selectedRows, with: .automatic)
+            setNavigationItemLeftButtonToEditButton()
+        }
+    }
+
+    func deleteStoreDatas(delete itinerary: Itinerary) {
+        itineraryStore.removeItinerary(itinerary)
+        imageStore.deleteImage(forKey: itinerary.itineraryKey)
+    }
+
     // MARK: - Segues
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return !self.isEditing
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "showItinerary":
@@ -108,8 +143,15 @@ class ItineraryViewController: UITableViewController {
     // MARK: -
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.allowsMultipleSelectionDuringEditing = true
 
         tableView.reloadData()
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+    }
+
+    func setNavigationItemLeftButtonToEditButton() {
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 }
