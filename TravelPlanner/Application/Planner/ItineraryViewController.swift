@@ -20,6 +20,11 @@ class ItineraryViewController: UITableViewController {
         return formatter
     }()
 
+    // MARK: - Test
+    func performInspect(_ indexPath: IndexPath) {
+        Swift.debugPrint("inspect: \(indexPath)")
+    }
+
     // MARK: - Init
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -58,10 +63,9 @@ class ItineraryViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let itinerary = itineraryStore.allItineraries[indexPath.row]
-            deleteStoreDatas(delete: itinerary)
+            deleteStoreDatas(deleteAt: indexPath)
 
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            deleteTableViewRows(deleteAt: [indexPath])
         }
     }
 
@@ -80,18 +84,38 @@ class ItineraryViewController: UITableViewController {
     @objc func deleteRowsByMultipleSelection(sender: UIBarButtonItem) {
         if let selectedRows = tableView.indexPathsForSelectedRows {
             for indexPath in selectedRows {
-                let itinerary = itineraryStore.allItineraries[indexPath.row]
-                deleteStoreDatas(delete: itinerary)
+                deleteStoreDatas(deleteAt: indexPath)
             }
 
-            tableView.deleteRows(at: selectedRows, with: .automatic)
+            deleteTableViewRows(deleteAt: selectedRows)
             setNavigationItemLeftButtonToEditButton()
         }
     }
 
-    func deleteStoreDatas(delete itinerary: Itinerary) {
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil,
+            previewProvider: nil,
+            actionProvider: {
+                suggestedActions in
+                let inspectAction =
+                    UIAction(title: "Delete", image: UIImage(systemName: "trash"),
+                    attributes: .destructive) { action in
+                    self.deleteStoreDatas(deleteAt: indexPath)
+
+                    self.deleteTableViewRows(deleteAt: [indexPath])
+                }
+                return UIMenu(title: "", children: [inspectAction])
+            })
+    }
+
+    func deleteStoreDatas(deleteAt indexPath: IndexPath) {
+        let itinerary = itineraryStore.allItineraries[indexPath.row]
         itineraryStore.removeItinerary(itinerary)
         imageStore.deleteImage(forKey: itinerary.itineraryKey)
+    }
+
+    func deleteTableViewRows(deleteAt rows: [IndexPath]) {
+        tableView.deleteRows(at: rows, with: .automatic)
     }
 
     // MARK: - Segues
