@@ -134,7 +134,7 @@ class ItineraryViewController: UITableViewController {
         }
     }
 
-    func showItinerary(segue: UIStoryboardSegue) {
+    private func showItinerary(segue: UIStoryboardSegue) {
         if let row = tableView.indexPathForSelectedRow?.row {
             let itinerary = itineraryStore.allItineraries[row]
             let detailViewController = segue.destination as! DetailViewController
@@ -142,7 +142,7 @@ class ItineraryViewController: UITableViewController {
         }
     }
 
-    func addItinerary(segue: UIStoryboardSegue) {
+    private func addItinerary(segue: UIStoryboardSegue) {
         let itinerary = itineraryStore.createItinerary()
 
         if let index = itineraryStore.allItineraries.firstIndex(of: itinerary) {
@@ -156,7 +156,7 @@ class ItineraryViewController: UITableViewController {
         segueToDetailView(in: detailViewController, show: itinerary)
     }
 
-    func segueToDetailView(in viewController: DetailViewController, show itinerary: Itinerary) {
+    private func segueToDetailView(in viewController: DetailViewController, show itinerary: Itinerary) {
         viewController.itinerary = itinerary
         viewController.imageStore = imageStore
         viewController.saveChanges = {
@@ -175,7 +175,7 @@ class ItineraryViewController: UITableViewController {
         super.setEditing(editing, animated: animated)
     }
 
-    func setNavigationItemLeftButtonToEditButton() {
+    private func setNavigationItemLeftButtonToEditButton() {
         navigationItem.leftBarButtonItem = editButtonItem
     }
 }

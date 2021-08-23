@@ -9,18 +9,18 @@ import UIKit
 
 class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     // MARK: - Variable
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var nameField: UITextField!
-    @IBOutlet var datetimeField: UITextField!
-    @IBOutlet var descriptionTextView: UITextView!
-
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var nameField: UITextField!
+    @IBOutlet private var datetimeField: UITextField!
+    @IBOutlet private var descriptionTextView: UITextView!
+    
+    private var datetimePicker = UIDatePicker()
     var itinerary: Itinerary!
     var isAddMode = false
-    var datetimePicker = UIDatePicker()
     var saveChanges = { }
     var imageStore: ImageStore!
 
-    let dateFormatter: DateFormatter = {
+    private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
@@ -41,12 +41,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         return true
     }
 
-    @IBAction func backgroungTapped(_ sender: UITapGestureRecognizer) {
+    @IBAction private func backgroungTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
 
     // MARK: - DatetimePicker
-    func createDatetimePicker() {
+    private func createDatetimePicker() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
 
@@ -60,7 +60,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         datetimeField.inputView = datetimePicker
     }
 
-    @objc func doneDatetimePick() {
+    @objc private func doneDatetimePick() {
         datetimeField.text = dateFormatter.string(from: datetimePicker.date)
         let _ = self.textFieldShouldReturn(datetimeField)
     }
@@ -79,7 +79,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         createDatetimePicker()
     }
 
-    @objc func setImageViewImage() {
+    @objc private func setImageViewImage() {
         if let displayImage = imageStore.getImage(forKey: itinerary.itineraryKey) {
             imageView.image = displayImage
         } else {
@@ -100,7 +100,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         setEditableTextFieldStyle(isEditing: editing)
     }
 
-    func setEditableTextFieldStyle(isEditing: Bool) {
+    private func setEditableTextFieldStyle(isEditing: Bool) {
         nameField.isUserInteractionEnabled = isEditing
         nameField.borderStyle = isEditing ? .roundedRect : .none
         nameField.placeholder = isEditing ? "Name" : ""
@@ -113,7 +113,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         descriptionTextView.backgroundColor = isEditing ? #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1): UIColor.systemBackground
     }
 
-    @objc func editButtonItemClick() {
+    @objc private func editButtonItemClick() {
         if self.isEditing {
             itinerary.name = nameField.text ?? ""
             itinerary.datetime = datetimePicker.date
@@ -124,7 +124,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         switchBackButtonVisible(isnotVisable: self.isEditing)
     }
     
-    func switchBackButtonVisible(isnotVisable: Bool){
+    private func switchBackButtonVisible(isnotVisable: Bool){
         navigationItem.hidesBackButton = isnotVisable
     }
 }

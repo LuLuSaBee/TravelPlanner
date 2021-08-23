@@ -9,7 +9,7 @@ import UIKit
 
 class ItineraryStore {
     var allItineraries = [Itinerary]()
-    let itineraryArchiveURL: URL = {
+    private let itineraryArchiveURL: URL = {
         let documentDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = documentDirectories.first!
         return documentDirectory.appendingPathComponent("itinerary.plist")
