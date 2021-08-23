@@ -17,7 +17,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var itinerary: Itinerary!
     var isAddMode = false
     var datetimePicker = UIDatePicker()
-    var saveChanges = { print("") }
+    var saveChanges = { }
     var imageStore: ImageStore!
 
     let dateFormatter: DateFormatter = {
