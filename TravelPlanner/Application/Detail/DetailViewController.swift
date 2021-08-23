@@ -70,6 +70,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         super.viewWillAppear(animated)
         nameField.text = itinerary.name
         datetimeField.text = dateFormatter.string(from: itinerary.datetime)
+        descriptionTextView.text = itinerary.description
 
         self.setEditing(isAddMode)
 
