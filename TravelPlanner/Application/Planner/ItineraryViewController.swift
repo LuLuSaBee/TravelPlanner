@@ -53,10 +53,10 @@ class ItineraryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItineraryCell", for: indexPath) as! ItineraryCell
         let itinerary = itineraryStore.allItineraries[indexPath.row]
-
-        cell.nameLabel.text = itinerary.name
-        cell.datetimeLabel.text = dateFormatter.string(from: itinerary.datetime)
-        cell.irineraryImage.image = imageStore.getImage(forKey: itinerary.itineraryKey)
+        let image = imageStore.getImage(forKey: itinerary.itineraryKey)
+        
+        let viewModel = ItineraryViewModel(image: image, itinerary: itinerary)
+        cell.viewModel = viewModel
 
         return cell
     }
