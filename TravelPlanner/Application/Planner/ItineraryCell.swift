@@ -16,39 +16,22 @@ class ItineraryCell: UITableViewCell {
 
     private var disposeBag: DisposeBag?
     
-    var viewModel: ItineraryViewModel? {
+    var viewModel: ItineraryCellViewModelType? {
         didSet {
             if oldValue != nil {
                 disposeBag = nil
             }
             guard let viewModel = viewModel else { return }
             
-            let bag = DisposeBag()
-            viewModel.output.irineraryImageObservable
-                .bind { [weak self] in
-                    self?.irineraryImage.image = $0
-                }
-                .disposed(by: bag)
-            
-            viewModel.output.nameLabelTextObservable
-                .bind { [weak self] in
-                    self?.nameLabel.text = $0
-                }
-                .disposed(by: bag)
-            
-            viewModel.output.datetimeLabelTextObservable
-                .bind { [weak self] in
-                    self?.datetimeLabel.text = $0
-                }
-                .disposed(by: bag)
-            
-            disposeBag = bag
+            irineraryImage.image = viewModel.output.irineraryImage
+            nameLabel.text = viewModel.output.nameLabelText
+            datetimeLabel.text = viewModel.output.datetimeLabelText
         }
     }
     
     override public func prepareForReuse() {
         super.prepareForReuse()
-        viewModel?.input.setImageView(nil)
+        viewModel?.input.setImage(nil)
         viewModel = nil
     }
 }

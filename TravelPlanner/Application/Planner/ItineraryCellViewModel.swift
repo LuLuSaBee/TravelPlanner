@@ -7,16 +7,15 @@
 
 import Foundation
 import UIKit
-import RxSwift
 
 protocol ItinerartCellViewModelInput {
-    func setImageView(_ imageView: UIImage?)
+    func setImage(_ image: UIImage?)
 }
 
 protocol ItineraryCellViewModelOutput {
-    var irineraryImageObservable: Observable<UIImage?> { get }
-    var nameLabelTextObservable: Observable<String> { get }
-    var datetimeLabelTextObservable: Observable<String> { get }
+    var irineraryImage: UIImage? { get }
+    var nameLabelText: String { get }
+    var datetimeLabelText: String { get }
 }
 
 protocol ItineraryCellViewModelType {
@@ -24,8 +23,8 @@ protocol ItineraryCellViewModelType {
     var output: ItineraryCellViewModelOutput { get }
 }
 
-class ItineraryViewModel: ItineraryCellViewModelType {
-    private var imageView: UIImage?
+class ItineraryCellViewModel: ItineraryCellViewModelType {
+    private var image: UIImage?
     private var name: String
     private var datetime: Date
     
@@ -40,22 +39,20 @@ class ItineraryViewModel: ItineraryCellViewModelType {
     }()
     
     init(image: UIImage?, itinerary: Itinerary) {
-        self.imageView = image
+        self.image = image
         self.name = itinerary.name
         self.datetime = itinerary.datetime
     }
 }
 
-extension ItineraryViewModel: ItinerartCellViewModelInput {
-    func setImageView(_ imageView: UIImage?) {
-        self.imageView = imageView
+extension ItineraryCellViewModel: ItinerartCellViewModelInput {
+    func setImage(_ image: UIImage?) {
+        self.image = image
     }
 }
 
-extension ItineraryViewModel: ItineraryCellViewModelOutput {
-    var irineraryImageObservable: Observable<UIImage?> { .just(self.imageView) }
-    var nameLabelTextObservable: Observable<String> { .just(self.name) }
-    var datetimeLabelTextObservable: Observable<String> {
-        .just(self.dateFormatter.string(from: self.datetime))
-    }
+extension ItineraryCellViewModel: ItineraryCellViewModelOutput {
+    var irineraryImage:UIImage? { self.image }
+    var nameLabelText: String { self.name }
+    var datetimeLabelText: String { self.dateFormatter.string(from: self.datetime) }
 }

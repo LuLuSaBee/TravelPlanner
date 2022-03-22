@@ -55,7 +55,7 @@ class ItineraryViewController: UITableViewController {
         let itinerary = itineraryStore.allItineraries[indexPath.row]
         let image = imageStore.getImage(forKey: itinerary.itineraryKey)
         
-        let viewModel = ItineraryViewModel(image: image, itinerary: itinerary)
+        let viewModel = ItineraryCellViewModel(image: image, itinerary: itinerary)
         cell.viewModel = viewModel
 
         return cell

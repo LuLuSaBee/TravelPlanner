@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     // MARK: - Variable
@@ -19,6 +21,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     var isAddMode = false
     var saveChanges = { }
     var imageStore: ImageStore!
+    
+    private var disposeBag = DisposeBag()
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -77,6 +81,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         setImageViewImage()
 
         createDatetimePicker()
+        
+        nameField.rx.text
+            .bind { [weak self] in
+                self?.itinerary.name = $0 ?? ""
+            }
+            .disposed(by: disposeBag)
     }
 
     @objc private func setImageViewImage() {
@@ -115,7 +125,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
 
     @objc private func editButtonItemClick() {
         if self.isEditing {
-            itinerary.name = nameField.text ?? ""
             itinerary.datetime = datetimePicker.date
             itinerary.description = descriptionTextView.text ?? ""
             saveChanges()
